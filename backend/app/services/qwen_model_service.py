@@ -31,9 +31,6 @@ class QwenModelService(ModelService):
         enable_thinking: bool = False,
         temperature: float = 0.7,
     ) -> dict:
-        if not self.is_loaded:
-            raise RuntimeError("Model not loaded. Call load() first.")
-
         text = self._tokenizer.apply_chat_template(
             messages,
             tokenize=False,
