@@ -15,3 +15,17 @@ app.add_middleware(
 @app.get("/api/v1/health", status_code=204)
 async def health():
     return Response(status_code=204)
+
+
+@app.post("/api/v1/chat")
+async def chat(payload: dict):
+    messages = payload.get("messages", [])
+    enable_thinking = payload.get("enable_thinking", False)
+    max_tokens = payload.get("max_tokens", 512)
+    temperature = payload.get("temperature", 0.7)
+
+    return {
+        "content": "TODO: wire to model service",
+        "thinking": None,
+        "model": "Qwen/Qwen3-0.6B",
+    }
