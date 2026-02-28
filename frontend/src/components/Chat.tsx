@@ -40,7 +40,7 @@ export function Chat() {
       })
       setChat((prev) => ({
         ...prev,
-        messages: [...prev.messages, { role: Role.Assistant, content: res.content }],
+        messages: [...prev.messages, { role: Role.Assistant, content: res.content, thinking: res.thinking ?? undefined }],
         sessionId: res.session_id,
         loading: false,
         error: null,
@@ -69,7 +69,7 @@ export function Chat() {
         ) : (
           <>
             {messages.map((m, i) => (
-              <Bubble key={i} role={m.role} content={m.content} />
+              <Bubble key={i} role={m.role} content={m.content} thinking={m.thinking} />
             ))}
             {loading && <Bubble role={Role.Assistant} content="Thinking…" />}
           </>

@@ -8,6 +8,7 @@ export type Role = (typeof Role)[keyof typeof Role]
 export type Message = {
   role: Role
   content: string
+  thinking?: string | null
 }
 
 export type BubbleProps = Message
