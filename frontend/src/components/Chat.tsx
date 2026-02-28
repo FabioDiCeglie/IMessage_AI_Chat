@@ -1,9 +1,12 @@
 import { useState } from "react"
 import { Bubble } from "./Bubble"
+import { Options } from "./Options"
 import type { Message } from "../types"
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([])
+  const [enableThinking, setEnableThinking] = useState(false)
+  const [temperature, setTemperature] = useState(0.7)
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-[80vh] max-h-screen max-w-2xl mx-auto bg-app-bg border border-app-border rounded-2xl overflow-hidden shadow-xl">
@@ -19,7 +22,13 @@ export function Chat() {
         )}
       </div>
 
-      <footer className="p-4">
+      <footer className="p-4 space-y-3">
+        <Options
+          enableThinking={enableThinking}
+          onThinkingChange={setEnableThinking}
+          temperature={temperature}
+          onTemperatureChange={setTemperature}
+        />
         <form
           className="flex gap-2 items-end"
           onSubmit={(e) => {
