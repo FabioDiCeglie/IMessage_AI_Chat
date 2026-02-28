@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
-/* Single place for app theme — change here to update everywhere */
+/* Single place for app theme — iMessage-style palette */
 @theme {
-  --color-app-bg: #121212;
-  --color-app-surface: #181818;
-  --color-app-text: #ffffff;
-  --color-app-muted: #b3b3b3;
-  --color-app-accent: #1db954;
-  --font-app: system-ui, sans-serif;
+  --color-app-bg: #E8E8ED;
+  --color-app-surface: #FFFFFF;
+  --color-app-border: #C6C6C8;
+  --color-app-text: #000000;
+  --color-app-muted: #8E8E93;
+  --color-app-accent: #007AFF;
+  --color-bubble-user: #007AFF;
+  --color-bubble-other: #E5E5EA;
+  --font-app: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
 }
 
 body {
