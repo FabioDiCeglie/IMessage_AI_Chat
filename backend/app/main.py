@@ -12,6 +12,7 @@ from app.services.qwen_model_service import QwenModelService
 from app.services.redis_session_service import RedisSessionService
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173")
 
 logging.basicConfig(
     level=getattr(logging, LOG_LEVEL, logging.INFO),
@@ -35,10 +36,11 @@ app = FastAPI(title="Chat_Qwen3.0_0.6B", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[CORS_ORIGINS],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "Accept"],
+    expose_headers=[],
 )
 
 
