@@ -1,8 +1,9 @@
+import { Chat } from "./components/Chat"
+
 function App() {
   return (
-    <div className="min-h-screen bg-stone-100 p-4">
-      <h1 className="text-xl font-medium text-stone-800">Chat</h1>
-      <p className="text-stone-600">Frontend ready — next: chat UI.</p>
+    <div className="min-h-screen bg-app-bg text-app-text py-6 px-4 sm:px-6">
+      <Chat />
     </div>
   )
 }
