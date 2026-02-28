@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -9,6 +9,7 @@ class Message(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    messages: list[Message] = Field(min_length=1)
+    session_id: Optional[str] = None
+    message: Message
     enable_thinking: bool = False
     temperature: float = Field(default=0.7, ge=0.0, le=2.0)
