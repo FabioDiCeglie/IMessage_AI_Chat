@@ -1,7 +1,20 @@
 @import "tailwindcss";
 
+/* Single place for app theme — change here to update everywhere */
+@theme {
+  --color-app-bg: #121212;
+  --color-app-surface: #181818;
+  --color-app-text: #ffffff;
+  --color-app-muted: #b3b3b3;
+  --color-app-accent: #1db954;
+  --font-app: system-ui, sans-serif;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--color-app-bg);
+  color: var(--color-app-text);
+  font-family: var(--font-app);
 }
