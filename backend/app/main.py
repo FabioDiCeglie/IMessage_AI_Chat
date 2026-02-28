@@ -2,7 +2,7 @@ import logging
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Response
+from fastapi import APIRouter, FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -43,14 +43,15 @@ app.add_middleware(
     expose_headers=[],
 )
 
+router = APIRouter(prefix="/api/v1", tags=["api"])
 
-@app.get("/api/v1/health", status_code=204)
+
+@router.get("/health", status_code=204)
 async def health():
     return Response(status_code=204)
 
 
-
-@app.post("/api/v1/chat")
+@router.post("/chat")
 async def chat(payload: ChatRequest):
     try:
         session_id = payload.session_id or session_service.create_session()
@@ -69,3 +70,6 @@ async def chat(payload: ChatRequest):
         return JSONResponse(status_code=500, content={"error": "Oops, something went wrong. Please contact support."})
 
     return {**result, "session_id": session_id}
+
+
+app.include_router(router)
