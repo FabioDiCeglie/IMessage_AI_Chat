@@ -2,6 +2,10 @@
 
 A small chat application powered by Hugging Face’s Qwen3-0.6B model, with optional chat history and session continuity.
 
+## Demo
+
+<video src="demo.mov" controls width="640"></video>
+
 **Architecture (Docker Compose):**
 
 ```mermaid
