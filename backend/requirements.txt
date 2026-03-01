@@ -4,3 +4,4 @@ transformers
 torch
 accelerate
 redis
+requests>=2.28.0
