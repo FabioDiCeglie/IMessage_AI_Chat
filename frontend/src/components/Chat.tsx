@@ -1,8 +1,10 @@
-import { useState } from "react"
-import { sendMessage } from "../api"
+import { useEffect, useState } from "react"
+import { getSessionMessages, sendMessage } from "../api"
 import { Bubble } from "./Bubble"
 import { Options } from "./Options"
 import { Role, type ChatState, type Message } from "../types"
+
+const SESSION_STORAGE_KEY = "chat-session-id"
 
 const initialChatState: ChatState = {
   messages: [],
@@ -15,6 +17,14 @@ export function Chat() {
   const [chat, setChat] = useState<ChatState>(initialChatState)
   const [enableThinking, setEnableThinking] = useState(false)
   const [temperature, setTemperature] = useState(0.7)
+
+  useEffect(() => {
+    const stored = localStorage.getItem(SESSION_STORAGE_KEY)
+    if (!stored) return
+    getSessionMessages(stored)
+      .then(({ messages }) => setChat((prev) => ({ ...prev, messages, sessionId: stored })))
+      .catch(() => localStorage.removeItem(SESSION_STORAGE_KEY))
+  }, [])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -38,6 +48,7 @@ export function Chat() {
         enable_thinking: enableThinking,
         temperature,
       })
+      localStorage.setItem(SESSION_STORAGE_KEY, res.session_id)
       setChat((prev) => ({
         ...prev,
         messages: [...prev.messages, { role: Role.Assistant, content: res.content, thinking: res.thinking ?? undefined }],

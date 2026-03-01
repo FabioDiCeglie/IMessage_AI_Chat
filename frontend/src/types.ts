@@ -33,3 +33,7 @@ export type ChatResponse = {
   model: string
   session_id: string
 }
+
+export type SessionMessagesResponse = {
+  messages: Message[]
+}
