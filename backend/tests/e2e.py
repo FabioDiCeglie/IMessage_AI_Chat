@@ -9,6 +9,7 @@ BASE = "http://localhost:8000/api/v1"
 def test_health():
     r = requests.get(f"{BASE}/health")
     assert r.status_code == 204, f"health: expected 204, got {r.status_code}"
+    print("  GET /health → 204")
 
 
 def test_chat_and_session():
@@ -37,9 +38,11 @@ def test_chat_and_session():
     assert len(msgs) >= 2, f"messages: expected at least 2, got {len(msgs)}"
     assert msgs[0]["role"] == "user"
     assert msgs[1]["role"] == "assistant"
+    print("  POST /chat + GET /sessions/.../messages → 200")
 
 
 def main():
+    print(f"E2E tests → {BASE}")
     try:
         test_health()
         test_chat_and_session()
