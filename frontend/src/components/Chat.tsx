@@ -66,12 +66,25 @@ export function Chat() {
     }
   }
 
+  function startNewChat() {
+    localStorage.removeItem(SESSION_STORAGE_KEY)
+    setChat(initialChatState)
+  }
+
   const { messages, loading, error } = chat
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-[80vh] max-h-screen max-w-2xl mx-auto bg-app-bg border border-app-border rounded-2xl overflow-hidden shadow-xl">
-      <header className="px-6 py-5 border-b border-app-border">
+      <header className="px-6 py-5 border-b border-app-border flex items-center justify-between gap-3">
         <h1 className="text-lg font-semibold tracking-tight">iMessage AI 🤖</h1>
+        <button
+          type="button"
+          onClick={startNewChat}
+          className="text-sm text-app-muted hover:text-app-text focus:outline-none focus:ring-2 focus:ring-app-accent focus:ring-offset-2 focus:ring-offset-app-bg rounded-lg px-2 py-1"
+          aria-label="Start new chat"
+        >
+          New chat
+        </button>
       </header>
 
       <div className="overflow-y-auto px-4 py-4 border-b border-app-border flex flex-col gap-2">
