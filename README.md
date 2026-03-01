@@ -4,7 +4,7 @@ A small chat application powered by Hugging Face’s Qwen3-0.6B model, with opti
 
 ## Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/I-ZPcHRN4mo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://github.com/user-attachments/assets/01a7a81d-df73-4c72-be6a-ba8e8fa30802
 
 **Architecture (Docker Compose):**
 
