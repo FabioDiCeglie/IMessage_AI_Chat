@@ -6,7 +6,7 @@ from fastapi import APIRouter, FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.schemas import ChatRequest
+from app.schemas import ChatPayload, ChatResponse, SessionMessagesResponse
 from app.services.model_service import ModelService
 from app.services.qwen_model_service import QwenModelService
 from app.services.redis_session_service import RedisSessionService
@@ -51,8 +51,14 @@ async def health():
     return Response(status_code=204)
 
 
-@router.post("/chat")
-async def chat(payload: ChatRequest):
+@router.get("/sessions/{session_id}/messages", response_model=SessionMessagesResponse)
+async def get_session_messages(session_id: str):
+    messages = session_service.get_messages(session_id)
+    return SessionMessagesResponse(messages=messages)
+
+
+@router.post("/chat", response_model=ChatResponse)
+async def chat(payload: ChatPayload):
     try:
         session_id = payload.session_id or session_service.create_session()
         session_service.add_message(session_id, payload.message.role, payload.message.content)
@@ -69,7 +75,7 @@ async def chat(payload: ChatRequest):
         logger.error(f"Chat failed: {e}")
         return JSONResponse(status_code=500, content={"error": "Oops, something went wrong. Please contact support."})
 
-    return {**result, "session_id": session_id}
+    return ChatResponse(**result, session_id=session_id)
 
 
 app.include_router(router)
